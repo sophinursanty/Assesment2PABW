@@ -5,13 +5,13 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>
 <body>
-    <div>
+    <form id="inputForm">
         <label for="wordInput">Word:</label>
         <input type="text" id="wordInput">
         <label for="scoreInput">Score:</label>
         <input type="text" id="scoreInput">
-        <button id="addButton">Add</button>
-    </div>
+        <button type="submit">Add</button>
+    </form>
 
     <table id="wordsTable" class="display" style="width:100%">
         <thead>
@@ -38,7 +38,8 @@
                 ]
             });
 
-            $('#addButton').on('click', function() {
+            $('#inputForm').submit(function(e) {
+                e.preventDefault();
                 var word = $('#wordInput').val();
                 var score = $('#scoreInput').val();
                 table.row.add({ word: word, score: score }).draw();
