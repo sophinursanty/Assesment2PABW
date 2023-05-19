@@ -5,6 +5,14 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 </head>
 <body>
+    <div>
+        <label for="wordInput">Word:</label>
+        <input type="text" id="wordInput">
+        <label for="scoreInput">Score:</label>
+        <input type="text" id="scoreInput">
+        <button id="addButton">Add</button>
+    </div>
+
     <table id="wordsTable" class="display" style="width:100%">
         <thead>
             <tr>
@@ -19,7 +27,7 @@
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#wordsTable').DataTable({
+            var table = $('#wordsTable').DataTable({
                 "ajax": {
                     "url": "https://api.datamuse.com/words?ml=ringing+in+the+ears",
                     "dataSrc": ""
@@ -28,6 +36,14 @@
                     { "data": "word" },
                     { "data": "score" }
                 ]
+            });
+
+            $('#addButton').on('click', function() {
+                var word = $('#wordInput').val();
+                var score = $('#scoreInput').val();
+                table.row.add({ word: word, score: score }).draw();
+                $('#wordInput').val('');
+                $('#scoreInput').val('');
             });
         });
     </script>
